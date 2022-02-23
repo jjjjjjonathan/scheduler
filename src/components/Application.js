@@ -57,10 +57,10 @@ export default function Application(props) {
 
       </section>
       <section className="schedule">
-        <>
+        <Fragment>
           {parsedAppointments}
           <Appointment key="last" time="5pm" />
-        </>
+        </Fragment>
       </section>
     </main>
   );
