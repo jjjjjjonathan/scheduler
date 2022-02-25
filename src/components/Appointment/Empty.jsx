@@ -1,6 +1,6 @@
 import React from "react";
 
-const Empty = props => {
+export default (props) => {
   const { onAdd } = props;
   return (
     <main className="appointment__add">
@@ -13,5 +13,3 @@ const Empty = props => {
     </main>
   );
 };
-
-export default Empty;

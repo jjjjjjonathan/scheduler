@@ -1,6 +1,6 @@
 import React from "react";
 
-const Show = props => {
+export default (props) => {
   const { student, interviewer, onEdit, onDelete } = props;
   return (
     <main className="appointment__card appointment__card--show">
@@ -31,5 +31,3 @@ const Show = props => {
 
   );
 };
-
-export default Show;

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Error = props => {
+export default (props) => {
   const { message, onClose } = props;
   return (
     <main className="appointment__card appointment__card--error">
@@ -17,5 +17,3 @@ const Error = props => {
     </main>
   );
 };
-
-export default Error;

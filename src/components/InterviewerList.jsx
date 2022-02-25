@@ -2,7 +2,7 @@ import React from "react";
 import InterviewerListItem from "./InterviewerListItem";
 import "components/InterviewerList.scss";
 
-export default function InterviewerList(props) {
+export default (props) => {
   const { interviewers, value, onChange } = props;
   const parsedInterviewers = interviewers.map(interviewer => (
     <InterviewerListItem

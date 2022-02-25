@@ -1,6 +1,6 @@
 import React from "react";
 
-const Status = props => {
+export default (props) => {
   const { message } = props;
   return (
     <main className="appointment__card appointment__card--status">
@@ -13,5 +13,3 @@ const Status = props => {
     </main>
   );
 };
-
-export default Status;

@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "components/Button";
 
-const Confirm = props => {
+export default (props) => {
   const { message, onConfirm, onCancel } = props;
   return (
     <main className="appointment__card appointment__card--confirm">
@@ -13,5 +13,3 @@ const Confirm = props => {
     </main>
   );
 };
-
-export default Confirm;

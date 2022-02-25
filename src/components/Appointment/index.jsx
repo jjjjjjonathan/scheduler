@@ -11,7 +11,7 @@ const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
 
-const Appointment = props => {
+export default (props) => {
   const { time, interview, state } = props;
   const { mode, transition, back } = useVisualMode(
     interview ? SHOW : EMPTY
@@ -25,5 +25,3 @@ const Appointment = props => {
     </article>
   );
 };
-
-export default Appointment;
