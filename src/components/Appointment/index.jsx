@@ -21,7 +21,7 @@ export default (props) => {
       <Header time={time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && <Show {...interview} />}
-      {mode === CREATE && <Form interviewers={getInterviewersForDay(state, state.day)} onCancel={() => back()} />}
+      {mode === CREATE && <Form interviewers={getInterviewersForDay(state, state.day)} onCancel={back} />}
     </article>
   );
 };
