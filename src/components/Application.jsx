@@ -41,6 +41,10 @@ export default () => {
       ...state.appointments,
       [id]: appointment,
     };
+    axios
+      .put(`/api/appointments/${id}`, { ...appointment })
+      .then((response) => {})
+      .catch((error) => console.log(error));
     setState({
       ...state,
       appointments,

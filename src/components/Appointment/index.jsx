@@ -6,10 +6,12 @@ import Form from './Form';
 import useVisualMode from 'hooks/useVisualMode';
 import { getInterviewersForDay } from 'helpers/selectors';
 import 'components/Appointment/styles.scss';
+import Status from './Status';
 
 const EMPTY = 'EMPTY';
 const SHOW = 'SHOW';
 const CREATE = 'CREATE';
+const SAVING = 'SAVING';
 
 export default (props) => {
   const { time, interview, state, bookInterview, id } = props;
@@ -21,9 +23,11 @@ export default (props) => {
       interviewer,
     };
     // console.log(interview);
-    bookInterview(id, interview);
-    // console.log(state.appointments[id]);
-    transition(SHOW);
+    transition(SAVING);
+    setTimeout(() => {
+      bookInterview(id, interview);
+      transition(SHOW);
+    }, 2000);
   };
 
   return (
@@ -38,6 +42,7 @@ export default (props) => {
           onSave={save}
         />
       )}
+      {mode === SAVING && <Status message={'Saving...'} />}
     </article>
   );
 };
