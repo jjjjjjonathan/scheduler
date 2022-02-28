@@ -32,7 +32,6 @@ export default () => {
   const dailyAppointments = getAppointmentsForDay(state, state.day);
 
   const bookInterview = (id, interview) => {
-    // console.log(id, interview);
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },
@@ -51,6 +50,25 @@ export default () => {
     });
   };
 
+  const deleteInterview = (id) => {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null,
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+    axios
+      .delete(`api/appointments/${id}`, { ...appointment })
+      .then((response) => {})
+      .catch((error) => console.log(error));
+    setState({
+      ...state,
+      appointments,
+    });
+  };
+
   const parsedAppointments = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
     return (
@@ -61,6 +79,7 @@ export default () => {
         interview={interview}
         state={state}
         bookInterview={bookInterview}
+        deleteInterview={deleteInterview}
       />
     );
   });

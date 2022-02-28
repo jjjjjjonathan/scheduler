@@ -14,7 +14,7 @@ const CREATE = 'CREATE';
 const SAVING = 'SAVING';
 
 export default (props) => {
-  const { time, interview, state, bookInterview, id } = props;
+  const { time, interview, state, bookInterview, id, deleteInterview } = props;
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
   const save = (name, interviewer) => {
@@ -30,11 +30,16 @@ export default (props) => {
     }, 2000);
   };
 
+  const deleteAppt = (id) => {
+    deleteInterview(id);
+    transition(EMPTY);
+  };
+
   return (
     <article className="appointment">
       <Header time={time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-      {mode === SHOW && <Show {...interview} />}
+      {mode === SHOW && <Show onDelete={deleteAppt} {...interview} id={id} />}
       {mode === CREATE && (
         <Form
           interviewers={getInterviewersForDay(state, state.day)}
