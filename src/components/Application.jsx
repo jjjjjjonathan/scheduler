@@ -1,32 +1,53 @@
-import React, { Fragment, useState, useEffect } from "react";
-import DayList from "./DayList";
-import Appointment from "./Appointment";
-import "components/Application.scss";
-import axios from "axios";
-import { getAppointmentsForDay, getInterview } from "helpers/selectors";
+import React, { Fragment, useState, useEffect } from 'react';
+import DayList from './DayList';
+import Appointment from './Appointment';
+import 'components/Application.scss';
+import axios from 'axios';
+import { getAppointmentsForDay, getInterview } from 'helpers/selectors';
 
 export default () => {
   const [state, setState] = useState({
-    day: "Monday",
+    day: 'Monday',
     days: [],
     appointments: {},
-    interviewers: {}
+    interviewers: {},
   });
 
   useEffect(() => {
     Promise.all([
       axios.get('/api/days'),
       axios.get('/api/appointments'),
-      axios.get('/api/interviewers')
-    ]).then(all => {
+      axios.get('/api/interviewers'),
+    ]).then((all) => {
       const [days, appointments, interviewers] = all;
-      setState(prev => ({ ...prev, days: days.data, appointments: appointments.data, interviewers: interviewers.data }));
+      setState((prev) => ({
+        ...prev,
+        days: days.data,
+        appointments: appointments.data,
+        interviewers: interviewers.data,
+      }));
     });
   }, []);
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
 
-  const parsedAppointments = dailyAppointments.map(appointment => {
+  const bookInterview = (id, interview) => {
+    // console.log(id, interview);
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview },
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+    setState({
+      ...state,
+      appointments,
+    });
+  };
+
+  const parsedAppointments = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
     return (
       <Appointment
@@ -35,12 +56,13 @@ export default () => {
         time={appointment.time}
         interview={interview}
         state={state}
+        bookInterview={bookInterview}
       />
     );
   });
 
-  const setDay = day => {
-    setState(prev => ({ ...prev, day }));
+  const setDay = (day) => {
+    setState((prev) => ({ ...prev, day }));
   };
 
   return (
@@ -53,18 +75,13 @@ export default () => {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-          <DayList
-            days={state.days}
-            value={state.day}
-            onChange={setDay}
-          />
+          <DayList days={state.days} value={state.day} onChange={setDay} />
         </nav>
         <img
           className="sidebar__lhl sidebar--centered"
           src="images/lhl.png"
           alt="Lighthouse Labs"
         />
-
       </section>
       <section className="schedule">
         <Fragment>
@@ -74,4 +91,4 @@ export default () => {
       </section>
     </main>
   );
-}
+};
