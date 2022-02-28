@@ -14,7 +14,8 @@ const SHOW = 'SHOW';
 const CREATE = 'CREATE';
 const SAVING = 'SAVING';
 const CONFIRM = 'CONFIRM';
-const DELETING = 'DELETING';
+const DELETE = 'DELETE';
+const EDIT = 'EDIT';
 
 export default (props) => {
   const { time, interview, state, bookInterview, id, deleteInterview } = props;
@@ -34,9 +35,10 @@ export default (props) => {
   };
 
   const deleteAppt = () => transition(CONFIRM);
+  const editAppt = () => transition(EDIT);
 
   const confirmDeleteAppt = (id) => {
-    transition(DELETING);
+    transition(DELETE);
     setTimeout(() => {
       deleteInterview(id);
       transition(EMPTY);
@@ -47,7 +49,9 @@ export default (props) => {
     <article className="appointment">
       <Header time={time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-      {mode === SHOW && <Show onDelete={deleteAppt} {...interview} id={id} />}
+      {mode === SHOW && (
+        <Show onDelete={deleteAppt} {...interview} id={id} onEdit={editAppt} />
+      )}
       {mode === CREATE && (
         <Form
           interviewers={getInterviewersForDay(state, state.day)}
@@ -63,7 +67,16 @@ export default (props) => {
           id={id}
         />
       )}
-      {mode === DELETING && <Status message={'Deleting...'} />}
+      {mode === DELETE && <Status message={'Deleting...'} />}
+      {mode === EDIT && (
+        <Form
+          interviewers={getInterviewersForDay(state, state.day)}
+          onCancel={back}
+          onSave={save}
+          student={interview.student}
+          interviewer={interview.interviewer.id}
+        />
+      )}
     </article>
   );
 };
