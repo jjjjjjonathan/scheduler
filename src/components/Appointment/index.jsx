@@ -3,6 +3,7 @@ import Header from './Header';
 import Show from './Show';
 import Empty from './Empty';
 import Form from './Form';
+import Confirm from './Confirm';
 import useVisualMode from 'hooks/useVisualMode';
 import { getInterviewersForDay } from 'helpers/selectors';
 import 'components/Appointment/styles.scss';
@@ -12,6 +13,8 @@ const EMPTY = 'EMPTY';
 const SHOW = 'SHOW';
 const CREATE = 'CREATE';
 const SAVING = 'SAVING';
+const CONFIRM = 'CONFIRM';
+const DELETING = 'DELETING';
 
 export default (props) => {
   const { time, interview, state, bookInterview, id, deleteInterview } = props;
@@ -30,9 +33,14 @@ export default (props) => {
     }, 2000);
   };
 
-  const deleteAppt = (id) => {
-    deleteInterview(id);
-    transition(EMPTY);
+  const deleteAppt = () => transition(CONFIRM);
+
+  const confirmDeleteAppt = (id) => {
+    transition(DELETING);
+    setTimeout(() => {
+      deleteInterview(id);
+      transition(EMPTY);
+    }, 2000);
   };
 
   return (
@@ -48,6 +56,14 @@ export default (props) => {
         />
       )}
       {mode === SAVING && <Status message={'Saving...'} />}
+      {mode === CONFIRM && (
+        <Confirm
+          message={'Wanna delete?'}
+          onConfirm={confirmDeleteAppt}
+          id={id}
+        />
+      )}
+      {mode === DELETING && <Status message={'Deleting...'} />}
     </article>
   );
 };
