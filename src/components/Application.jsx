@@ -40,14 +40,12 @@ export default () => {
       ...state.appointments,
       [id]: appointment,
     };
-    axios
-      .put(`/api/appointments/${id}`, { ...appointment })
-      .then((response) => {})
-      .catch((error) => console.log(error));
-    setState({
-      ...state,
-      appointments,
-    });
+    return axios.put(`/api/appointments/${id}`, { ...appointment }).then(() =>
+      setState({
+        ...state,
+        appointments,
+      })
+    );
   };
 
   const deleteInterview = (id) => {
@@ -59,14 +57,12 @@ export default () => {
       ...state.appointments,
       [id]: appointment,
     };
-    axios
-      .delete(`api/appointments/${id}`, { ...appointment })
-      .then((response) => {})
-      .catch((error) => console.log(error));
-    setState({
-      ...state,
-      appointments,
-    });
+    return axios.delete(`api/appointments/${id}`, { ...appointment }).then(() =>
+      setState({
+        ...state,
+        appointments,
+      })
+    );
   };
 
   const parsedAppointments = dailyAppointments.map((appointment) => {

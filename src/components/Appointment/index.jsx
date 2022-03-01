@@ -4,6 +4,7 @@ import Show from './Show';
 import Empty from './Empty';
 import Form from './Form';
 import Confirm from './Confirm';
+import Error from './Error';
 import useVisualMode from 'hooks/useVisualMode';
 import { getInterviewersForDay } from 'helpers/selectors';
 import 'components/Appointment/styles.scss';
@@ -16,6 +17,8 @@ const SAVING = 'SAVING';
 const CONFIRM = 'CONFIRM';
 const DELETE = 'DELETE';
 const EDIT = 'EDIT';
+const ERROR_SAVE = 'ERROR_SAVE';
+const ERROR_DELETE = 'ERROR_DELETE';
 
 export default (props) => {
   const { time, interview, state, bookInterview, id, deleteInterview } = props;
@@ -26,23 +29,20 @@ export default (props) => {
       student: name,
       interviewer,
     };
-    // console.log(interview);
     transition(SAVING);
-    setTimeout(() => {
-      bookInterview(id, interview);
-      transition(SHOW);
-    }, 2000);
+    bookInterview(id, interview)
+      .then(() => transition(SHOW))
+      .catch((error) => transition(ERROR_SAVE, true));
   };
 
   const deleteAppt = () => transition(CONFIRM);
   const editAppt = () => transition(EDIT);
 
   const confirmDeleteAppt = (id) => {
-    transition(DELETE);
-    setTimeout(() => {
-      deleteInterview(id);
-      transition(EMPTY);
-    }, 2000);
+    transition(DELETE, true);
+    deleteInterview(id)
+      .then(() => transition(EMPTY))
+      .catch((error) => transition(ERROR_DELETE, true));
   };
 
   return (
@@ -76,6 +76,12 @@ export default (props) => {
           student={interview.student}
           interviewer={interview.interviewer.id}
         />
+      )}
+      {mode === ERROR_SAVE && (
+        <Error message={'Cannot save the appointment'} onClose={back} />
+      )}
+      {mode === ERROR_DELETE && (
+        <Error message={'Cannot delete the appointment'} onClose={back} />
       )}
     </article>
   );
