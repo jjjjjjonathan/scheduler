@@ -45,7 +45,7 @@ export default () => {
           ...prev,
           appointments,
         }));
-        updateSpots(id, 'subtract');
+        updateSpots(id, -1);
       }
       );
   };
@@ -65,15 +65,15 @@ export default () => {
           ...prev,
           appointments,
         }));
-        updateSpots(id, 'add');
+        updateSpots(id, 1);
       }
       );
   };
 
-  const updateSpots = (id, method) => {
+  const updateSpots = (id, num) => {
     setState((prev) => ({
       ...prev,
-      days: prev.days.map(day => day.appointments.includes(id) ? { ...day, spots: method === 'add' ? day.spots + 1 : day.spots - 1 } : day)
+      days: prev.days.map(day => day.appointments.includes(id) ? { ...day, spots: day.spots + num } : day)
     }));
   };
 
