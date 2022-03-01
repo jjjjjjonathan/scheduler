@@ -6,7 +6,6 @@ import Form from './Form';
 import Confirm from './Confirm';
 import Error from './Error';
 import useVisualMode from 'hooks/useVisualMode';
-import { getInterviewersForDay } from 'helpers/selectors';
 import 'components/Appointment/styles.scss';
 import Status from './Status';
 
@@ -21,7 +20,8 @@ const ERROR_SAVE = 'ERROR_SAVE';
 const ERROR_DELETE = 'ERROR_DELETE';
 
 export default (props) => {
-  const { time, interview, state, bookInterview, id, deleteInterview } = props;
+  const { time, interview, interviewers, bookInterview, id, deleteInterview } =
+    props;
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
   const save = (name, interviewer) => {
@@ -53,11 +53,7 @@ export default (props) => {
         <Show onDelete={deleteAppt} {...interview} id={id} onEdit={editAppt} />
       )}
       {mode === CREATE && (
-        <Form
-          interviewers={getInterviewersForDay(state, state.day)}
-          onCancel={back}
-          onSave={save}
-        />
+        <Form interviewers={interviewers} onCancel={back} onSave={save} />
       )}
       {mode === SAVING && <Status message={'Saving...'} />}
       {mode === CONFIRM && (
@@ -70,7 +66,7 @@ export default (props) => {
       {mode === DELETE && <Status message={'Deleting...'} />}
       {mode === EDIT && (
         <Form
-          interviewers={getInterviewersForDay(state, state.day)}
+          interviewers={interviewers}
           onCancel={back}
           onSave={save}
           student={interview.student}
