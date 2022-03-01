@@ -25,14 +25,16 @@ export default (props) => {
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
   const save = (name, interviewer) => {
-    const interview = {
-      student: name,
-      interviewer,
-    };
-    transition(SAVING);
-    bookInterview(id, interview)
-      .then(() => transition(SHOW))
-      .catch((error) => transition(ERROR_SAVE, true));
+    if (name && interviewer) {
+      const interview = {
+        student: name,
+        interviewer,
+      };
+      transition(SAVING);
+      bookInterview(id, interview)
+        .then(() => transition(SHOW))
+        .catch((error) => transition(ERROR_SAVE, true));
+    } else transition(ERROR_SAVE);
   };
 
   const deleteAppt = () => transition(CONFIRM);

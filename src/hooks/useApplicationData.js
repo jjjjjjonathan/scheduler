@@ -39,14 +39,13 @@ export default () => {
       [id]: appointment,
     };
 
-
     return axios.put(`/api/appointments/${id}`, { ...appointment })
       .then(() => {
-        setState({
-          ...state,
+        setState((prev) => ({
+          ...prev,
           appointments,
-        });
-        updateSpots();
+        }));
+        updateSpots(id, 'subtract');
       }
       );
   };
@@ -62,18 +61,20 @@ export default () => {
     };
     return axios.delete(`api/appointments/${id}`, { ...appointment })
       .then(() => {
-        setState({
-          ...state,
+        setState((prev) => ({
+          ...prev,
           appointments,
-        });
-        updateSpots();
+        }));
+        updateSpots(id, 'add');
       }
       );
   };
 
-  const updateSpots = () => {
-    axios.get('/api/days')
-      .then((res) => setState((prev) => ({ ...prev, days: res.data })));
+  const updateSpots = (id, method) => {
+    setState((prev) => ({
+      ...prev,
+      days: prev.days.map(day => day.appointments.includes(id) ? { ...day, spots: method === 'add' ? day.spots + 1 : day.spots - 1 } : day)
+    }));
   };
 
   return { state, setDay, bookInterview, deleteInterview };
