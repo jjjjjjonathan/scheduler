@@ -1,5 +1,6 @@
 import { useEffect, useReducer } from "react";
 import axios from "axios";
+// import WebSocket from 'ws';
 
 export default () => {
 
@@ -103,6 +104,14 @@ export default () => {
       spots: day.appointments.filter(spot => !appointments[spot].interview).length
     } : day)
   );
+
+  useEffect(() => {
+    const ws = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+
+    ws.onopen = event => {
+      ws.send("message received: ping");
+    };
+  }, []);
 
   return { state, setDay, bookInterview, deleteInterview };
 };
