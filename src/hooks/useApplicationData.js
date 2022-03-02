@@ -4,6 +4,13 @@ import axios from "axios";
 
 export default () => {
 
+  const updateSpots = (state, appointments, id) => (
+    state.days.map(day => day.appointments.includes(id) ? {
+      ...day,
+      spots: day.appointments.filter(spot => !appointments[spot].interview).length
+    } : day)
+  );
+
   const SET_DAY = "SET_DAY";
   const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
   const SET_INTERVIEW = "SET_INTERVIEW";
@@ -24,10 +31,17 @@ export default () => {
       };
     },
     SET_INTERVIEW(state, action) {
+      const appointments = {
+        ...state.appointments,
+        [action.id]: {
+          ...state.appointments[action.id],
+          interview: (action.interview ? { ...action.interview } : null)
+        },
+      };
       return {
         ...state,
-        appointments: action.appointments,
-        days: action.days
+        appointments,
+        days: updateSpots(state, appointments, action.id)
       };
     }
   };
@@ -66,50 +80,21 @@ export default () => {
   };
 
   const bookInterview = (id, interview) => {
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview },
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment,
-    };
-
-    return axios.put(`/api/appointments/${id}`, { ...appointment })
-      .then(() => {
-        dispatch({ type: SET_INTERVIEW, appointments, days: updateSpots(state, appointments, id) });
-      }
-      );
+    return axios.put(`/api/appointments/${id}`, { interview });
   };
 
   const deleteInterview = (id) => {
-    const appointment = {
-      ...state.appointments[id],
-      interview: null,
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment,
-    };
-    return axios.delete(`api/appointments/${id}`, { ...appointment })
-      .then(() => {
-        dispatch({ type: SET_INTERVIEW, appointments, days: updateSpots(state, appointments, id) });
-      }
-      );
-  };
 
-  const updateSpots = (state, appointments, id) => (
-    state.days.map(day => day.appointments.includes(id) ? {
-      ...day,
-      spots: day.appointments.filter(spot => !appointments[spot].interview).length
-    } : day)
-  );
+    return axios.delete(`api/appointments/${id}`);
+  };
 
   useEffect(() => {
     const ws = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
-
-    ws.onopen = event => {
-      ws.send("message received: ping");
+    ws.onmessage = updateInterview => {
+      const appointment = JSON.parse(updateInterview.data);
+      if (appointment.type === "SET_INTERVIEW") {
+        dispatch({ type: SET_INTERVIEW, id: appointment.id, interview: appointment.interview });
+      }
     };
   }, []);
 
