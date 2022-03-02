@@ -44,8 +44,8 @@ export default () => {
         setState((prev) => ({
           ...prev,
           appointments,
+          days: updateSpots(prev, appointments, id)
         }));
-        updateSpots(id, -1);
       }
       );
   };
@@ -64,18 +64,18 @@ export default () => {
         setState((prev) => ({
           ...prev,
           appointments,
+          days: updateSpots(prev, appointments, id)
         }));
-        updateSpots(id, 1);
       }
       );
   };
 
-  const updateSpots = (id, num) => {
-    setState((prev) => ({
-      ...prev,
-      days: prev.days.map(day => day.appointments.includes(id) ? { ...day, spots: day.spots + num } : day)
-    }));
-  };
+  const updateSpots = (state, appointments, id) => (
+    state.days.map(day => day.appointments.includes(id) ? {
+      ...day,
+      spots: day.appointments.filter(spot => !appointments[spot].interview).length
+    } : day)
+  );
 
   return { state, setDay, bookInterview, deleteInterview };
 };
