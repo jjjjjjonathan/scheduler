@@ -28,8 +28,18 @@ export default (props) => {
   };
 
   const validate = (student, interviewer) => {
+    if (student === '' && !interviewer) {
+      setError(
+        'Student name cannot be blank and you also need to select an interviewer'
+      );
+      return;
+    }
     if (student === '') {
       setError('Student name cannot be blank');
+      return;
+    }
+    if (!interviewer) {
+      setError('Please select an interviewer');
       return;
     }
     setError('');
