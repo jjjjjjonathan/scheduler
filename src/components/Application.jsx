@@ -13,6 +13,8 @@ export default () => {
   const { state, setDay, bookInterview, deleteInterview } =
     useApplicationData();
 
+  console.log(state);
+
   const interviewers = getInterviewersForDay(state, state.day);
 
   const appointments = getAppointmentsForDay(state, state.day).map(

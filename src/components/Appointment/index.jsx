@@ -61,6 +61,7 @@ export default (props) => {
           message={'Wanna delete?'}
           onConfirm={confirmDeleteAppt}
           id={id}
+          onCancel={back}
         />
       )}
       {mode === DELETE && <Status message={'Deleting...'} />}
