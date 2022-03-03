@@ -22,15 +22,6 @@ With Web Sockets, users can also see real-time updates of the schedule when anyo
 
 - PostgreSQL
 
-### Testing
-
-- Jest
-- Cypress
-
-### Component design
-
-- Storybook
-
 ### Hosting services
 
 - CircleCI
