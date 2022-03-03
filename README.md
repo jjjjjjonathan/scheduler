@@ -30,6 +30,17 @@ With Web Sockets, users can also see real-time updates of the schedule when anyo
 
 ## Getting Started
 
+### For visitors who want to use the app
+
+- Click [here](https://zealous-montalcini-e57588.netlify.app/) to visit the deployed app on Netlify.
+
+### For developers who want to run it locally
+
+- Clone this repo, and run `npm install` to install dependencies.
+- Clone the [scheduler-api repo](https://github.com/lighthouse-labs/scheduler-api) and follow the instructions there to set up the PostgreSQL database.
+- Start the scheduler-api server with `npm start`.
+- Start the scheduler client with `npm start`.
+
 ## Final Product
 
 !["Screenshot of scheduler with appointment creation form"](https://github.com/jjjjjjonathan/scheduler/blob/main/docs/screenshots/scheduler1-home.png)
