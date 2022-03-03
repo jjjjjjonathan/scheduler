@@ -31,9 +31,9 @@ deploy:
           - '9f:62:d0:c6:02:f7:7d:88:30:b0:4b:a1:d0:dc:73:8e'
     - checkout
     - run:
-        name: Push Main to Production
+        name: Push Master to Production
         command: |
-          git push https://github.com/jjjjjjonathan/scheduler.git main:production
+          git push https://github.com/jjjjjjonathan/scheduler.git master:production
 
 workflows:
   version: 2
