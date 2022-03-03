@@ -67,7 +67,7 @@ export default (props) => {
       {mode === SAVING && <Status message={'Saving...'} />}
       {mode === CONFIRM && (
         <Confirm
-          message={'Wanna delete?'}
+          message={'Are you sure you want to delete this appointment?'}
           onConfirm={confirmDeleteAppt}
           id={id}
           onCancel={back}
