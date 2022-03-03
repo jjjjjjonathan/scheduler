@@ -41,6 +41,12 @@ With Web Sockets, users can also see real-time updates of the schedule when anyo
 
 ## Final Product
 
+!["Screenshot of scheduler with appointment creation form"](https://github.com/jjjjjjonathan/scheduler/blob/main/docs/screenshots/scheduler1-home.png)
+
+!["Screenshot of scheduler with delete conformation"](https://github.com/jjjjjjonathan/scheduler/blob/main/docs/screenshots/scheduler2-deleteconformation.png)
+
+!["Screenshot of scheduler with saving transition"](https://github.com/jjjjjjonathan/scheduler/blob/main/docs/screenshots/scheduler3-savingtransition.png)
+
 ## Future Plans
 
 - Implement some sort of cookies to only allow users to update or delete their own appointments (anyone can currently update or delete anything they want).
