@@ -51,10 +51,10 @@ describe("Form", () => {
     expect(onSave).not.toHaveBeenCalled();
   });
 
-  it("can successfully save after trying to submit an empty student name", () => {
+  it("does not save when student name is empty", () => {
     const onSave = jest.fn();
     const { getByText, getByPlaceholderText, queryByText } = render(
-      <Form interviewers={interviewers} onSave={onSave} />
+      <Form interviewers={interviewers} onSave={onSave} interviewer={1} />
     );
 
     fireEvent.click(getByText("Save"));
@@ -69,9 +69,35 @@ describe("Form", () => {
     fireEvent.click(getByText("Save"));
 
     expect(queryByText(/student name cannot be blank/i)).toBeNull();
-    // line 73 fails because I'm also validating for a selected interviewer now
     expect(onSave).toHaveBeenCalledTimes(1);
-    expect(onSave).toHaveBeenCalledWith("Lydia Miller-Jones", null);
+    expect(onSave).toHaveBeenCalledWith("Lydia Miller-Jones", 1);
+  });
+
+  it("does not save when interviewer is not selected", () => {
+    const onSave = jest.fn();
+    const { getByText, getByPlaceholderText, queryByText } = render(
+      <Form interviewers={interviewers} onSave={onSave} />
+    );
+
+    fireEvent.change(getByPlaceholderText("Enter Student Name"), {
+      target: { value: "Lydia Miller-Jones" }
+    });
+
+    fireEvent.click(getByText("Save"));
+
+    expect(queryByText(/please select an interviewer/i)).toBeInTheDocument();
+    expect(onSave).toHaveBeenCalledTimes(0);
+  });
+
+  it("does not save when student and interviewer are not selected", () => {
+    const onSave = jest.fn();
+    const { getByText } = render(
+      <Form interviewers={interviewers} onSave={onSave} />
+    );
+    fireEvent.click(getByText("Save"));
+
+    expect(getByText(/student name cannot be blank and you also need to select an interviewer/i)).toBeInTheDocument();
+    expect(onSave).not.toHaveBeenCalled();
   });
 
   it("calls onCancel and resets the input field", () => {
@@ -99,7 +125,4 @@ describe("Form", () => {
 
     expect(onCancel).toHaveBeenCalledTimes(1);
   });
-
-
-
 });
