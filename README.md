@@ -1,23 +1,46 @@
 # Interview Scheduler
 
-## Setup
+Interview Scheduler is a single-page app (SPA) built with React that allows users to book appointments with available interviewers, on Monday to Friday from 12:00-5:00pm. Users can choose the day and time slot they would like to create an appointment, and they can delete or update appointments with a new name or selecter interviewer.
 
-Install dependencies with `npm install`.
+With Web Sockets, users can also see real-time updates of the schedule when anyone creates, updates, or deletes an appointment. Data is stored on a PostgreSQL database.
 
-## Running Webpack Development Server
+## Stack
 
-```sh
-npm start
-```
+### Front-end
 
-## Running Jest Test Framework
+- React
+- Axios
+- Sass
 
-```sh
-npm test
-```
+### Back-end
 
-## Running Storybook Visual Testbed
+- Node.js
+- Express
+- WebSocket
 
-```sh
-npm run storybook
-```
+### Database
+
+- PostgreSQL
+
+### Testing
+
+- Jest
+- Cypress
+
+### Component design
+
+- Storybook
+
+### Hosting services
+
+- CircleCI
+- Heroku
+- Netlify
+
+## Getting Started
+
+## Final Product
+
+## Future Plans
+
+- Implement some sort of cookies to only allow users to update or delete their own appointments (anyone can currently update or delete anything they want).
