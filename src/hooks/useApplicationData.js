@@ -1,15 +1,7 @@
 import { useEffect, useReducer } from "react";
 import axios from "axios";
-// import WebSocket from 'ws';
 
 export default () => {
-
-  const updateSpots = (state, appointments, id) => (
-    state.days.map(day => day.appointments.includes(id) ? {
-      ...day,
-      spots: day.appointments.filter(spot => !appointments[spot].interview).length
-    } : day)
-  );
 
   const SET_DAY = "SET_DAY";
   const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
@@ -38,6 +30,12 @@ export default () => {
           interview: (action.interview ? { ...action.interview } : null)
         },
       };
+      const updateSpots = (state, appointments, id) => (
+        state.days.map(day => day.appointments.includes(id) ? {
+          ...day,
+          spots: day.appointments.filter(spot => !appointments[spot].interview).length
+        } : day)
+      );
       return {
         ...state,
         appointments,
@@ -50,14 +48,12 @@ export default () => {
     return reducers[action.type](state, action) || state;
   };
 
-  const initialState = {
+  const [state, dispatch] = useReducer(reducer, {
     day: 'Monday',
     days: [],
     appointments: {},
     interviewers: {}
-  };
-
-  const [state, dispatch] = useReducer(reducer, initialState);
+  });
 
   useEffect(() => {
     Promise.all([
@@ -87,6 +83,8 @@ export default () => {
 
     return axios.delete(`api/appointments/${id}`);
   };
+
+
 
   useEffect(() => {
     const ws = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);

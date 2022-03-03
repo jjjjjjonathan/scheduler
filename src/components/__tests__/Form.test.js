@@ -69,7 +69,7 @@ describe("Form", () => {
     fireEvent.click(getByText("Save"));
 
     expect(queryByText(/student name cannot be blank/i)).toBeNull();
-
+    // line 73 fails because I'm also validating for a selected interviewer now
     expect(onSave).toHaveBeenCalledTimes(1);
     expect(onSave).toHaveBeenCalledWith("Lydia Miller-Jones", null);
   });
