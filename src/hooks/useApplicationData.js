@@ -80,16 +80,14 @@ export default () => {
   };
 
   const deleteInterview = (id) => {
-
     return axios.delete(`api/appointments/${id}`);
   };
 
-
-
+  // Real-time updates of schedule using web sockets
   useEffect(() => {
     const ws = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
-    ws.onmessage = updateInterview => {
-      const appointment = JSON.parse(updateInterview.data);
+    ws.onmessage = (updateSchedule) => {
+      const appointment = JSON.parse(updateSchedule.data);
       if (appointment.type === "SET_INTERVIEW") {
         dispatch({ type: SET_INTERVIEW, id: appointment.id, interview: appointment.interview });
       }
