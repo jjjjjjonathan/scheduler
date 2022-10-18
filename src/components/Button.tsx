@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import classNames from 'classnames';
-
 import 'components/Button.scss';
 
-export default (props) => {
-  const { onClick, confirm, danger, disabled, children } = props;
+type ButtonProps = {
+  onClick: MouseEventHandler;
+  confirm: Boolean;
+  danger: Boolean;
+  disabled: any;
+  children: any;
+};
+
+export default ({
+  onClick,
+  confirm,
+  danger,
+  disabled,
+  children,
+}: ButtonProps) => {
   const btnClass = classNames('button', {
     'button--confirm': confirm,
     'button--danger': danger,
