@@ -1,7 +1,11 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 
-export default (props) => {
-  const { message, onClose } = props;
+type ErrorProps = {
+  message: String,
+  onClose: MouseEventHandler;
+};
+
+export default ({ message, onClose }: ErrorProps) => {
   return (
     <main className="appointment__card appointment__card--error">
       <section className="appointment__error-message">
