@@ -1,7 +1,10 @@
 import React from "react";
 
-export default (props) => {
-  const { message } = props;
+type StatusProps = {
+  message: string
+}
+
+export default ({ message }: StatusProps) => {
   return (
     <main className="appointment__card appointment__card--status">
       <img
