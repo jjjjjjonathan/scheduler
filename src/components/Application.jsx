@@ -1,20 +1,19 @@
 import React, { Fragment } from 'react';
 import DayList from './DayList';
 import Appointment from './Appointment';
-import 'components/Application.scss';
+import './Application.scss';
 import {
   getAppointmentsForDay,
   getInterview,
   getInterviewersForDay,
-} from 'helpers/selectors';
-import useApplicationData from 'hooks/useApplicationData';
+} from '../helpers/selectors';
+import useApplicationData from '../hooks/useApplicationData';
 
 export default () => {
   const { state, setDay, bookInterview, deleteInterview } =
     useApplicationData();
 
   const interviewers = getInterviewersForDay(state, state.day);
-
   const appointments = getAppointmentsForDay(state, state.day).map(
     (appointment) => {
       const interview = getInterview(state, appointment.interview);

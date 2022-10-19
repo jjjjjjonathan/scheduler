@@ -6,7 +6,7 @@ import Form from './Form';
 import Confirm from './Confirm';
 import Error from './Error';
 import useVisualMode from '../../hooks/useVisualMode';
-import 'components/Appointment/styles.scss';
+import './styles.scss';
 import Status from './Status';
 
 const EMPTY = 'EMPTY';

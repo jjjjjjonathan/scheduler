@@ -1,5 +1,5 @@
 import React, { MouseEventHandler } from 'react';
-import 'components/InterviewerListItem.scss';
+import './InterviewerListItem.scss';
 import classNames from 'classnames';
 
 type InterviewerListItemProps = {

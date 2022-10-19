@@ -1,6 +1,6 @@
 import React, { MouseEventHandler } from 'react';
 import classNames from 'classnames';
-import 'components/Button.scss';
+import './Button.scss';
 
 type ButtonProps = {
   onClick: MouseEventHandler;
