@@ -28,7 +28,7 @@ export default () => {
     id: number,
     name: string,
     appointments: number[],
-    interviewers: [Interviewer]
+    interviewers: Interviewer[]
   }
   
   type State = {

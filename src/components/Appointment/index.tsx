@@ -33,7 +33,7 @@ type Interview = {
 type AppointmentProps = {
   time: string;
   interview: Interview;
-  interviewers: [Interviewer];
+  interviewers: Interviewer[];
   bookInterview: Function;
   id: number;
   deleteInterview: Function;
@@ -91,7 +91,7 @@ export default ({
           interviewers={interviewers}
           onCancel={back}
           onSave={save}
-          student={interview.student ? interview.student : ''}
+          student={interview ? interview.student : ''}
         />
       )}
       {mode === SAVING && <Status message={'Saving...'} />}

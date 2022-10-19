@@ -10,7 +10,7 @@ type Interviewer = {
 
 type FormProps = {
   student: string;
-  interviewers: [Interviewer];
+  interviewers: Interviewer[];
   onSave: Function;
   onCancel: Function;
   interviewer?: number;
@@ -58,7 +58,6 @@ export default ({
     setError('');
     onSave(student, interviewer);
   };
-
   return (
     <main className='appointment__card appointment__card--create'>
       <section className='appointment__card-left'>

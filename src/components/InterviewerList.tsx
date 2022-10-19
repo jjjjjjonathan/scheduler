@@ -10,7 +10,7 @@ type Interviewer = {
 };
 
 type InterviewerListProps = {
-  interviewers: [Interviewer];
+  interviewers: Interviewer[];
   value: number | null;
   onChange: Function;
 };
