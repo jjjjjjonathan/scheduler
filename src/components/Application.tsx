@@ -52,15 +52,7 @@ export default () => {
       <section className='schedule'>
         <Fragment>
           {appointments}
-          <Appointment
-            key='last'
-            time='5pm'
-            interview={null}
-            interviewers={null}
-            bookInterview={null}
-            deleteInterview={null}
-            id={null}
-          />
+          <Appointment key='last' time='5pm' />
         </Fragment>
       </section>
     </main>

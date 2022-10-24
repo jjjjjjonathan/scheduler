@@ -10,7 +10,7 @@ const InterviewerList = ({
   value,
   onChange,
 }: InterviewerListProps) => {
-  const parsedInterviewers = interviewers.map((interviewer: Interviewer) => (
+  const parsedInterviewers = interviewers!.map((interviewer: Interviewer) => (
     <InterviewerListItem
       key={interviewer.id}
       setInterviewer={() => onChange(interviewer.id)}

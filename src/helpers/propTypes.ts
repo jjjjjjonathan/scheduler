@@ -5,7 +5,7 @@ export type ConfirmProps = {
   message: string;
   onConfirm: Function;
   onCancel: MouseEventHandler;
-  id: number
+  id?: number
 }
 
 export type EmptyProps = {
@@ -18,8 +18,8 @@ export type ErrorProps = {
 }
 
 export type FormProps = {
-  student: string;
-  interviewers: Interviewer[];
+  student?: string;
+  interviewers?: Interviewer[];
   onSave: Function;
   onCancel: Function;
   interviewer?: number
@@ -31,11 +31,11 @@ export type HeaderProps = {
 
 export type AppointmentProps = {
   time: string;
-  interview: Interview | null;
-  interviewers: Interviewer[] | null;
-  bookInterview: Function | null;
-  id: number | null;
-  deleteInterview: Function | null
+  interview?: Interview | null;
+  interviewers?: Interviewer[];
+  bookInterview?: Function;
+  id?: number;
+  deleteInterview?: Function
 }
 
 export type ShowProps = {
@@ -43,7 +43,7 @@ export type ShowProps = {
   interviewer: Interviewer;
   onEdit: MouseEventHandler;
   onDelete: Function;
-  id: number
+  id?: number
 }
 
 export type StatusProps = {
@@ -72,7 +72,7 @@ export type DayListItemProps = {
 }
 
 export type InterviewerListProps = {
-  interviewers: Interviewer[];
+  interviewers?: Interviewer[];
   value: number | null;
   onChange: Function
 }

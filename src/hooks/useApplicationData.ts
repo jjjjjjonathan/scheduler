@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from "react";
 import axios from "axios";
 import { SetDayAction, SetApplicationDataAction, SetInterviewAction } from "../helpers/actionTypes";
-import { State, AppointmentAfterConversion, Interview, Appointment } from "../helpers/stateTypes";
+import { State, Interview, Appointment } from "../helpers/stateTypes";
 
 const useApplicationData = (): { state: State, setDay: Function, bookInterview: Function, deleteInterview: Function } => {
 
@@ -34,7 +34,7 @@ const useApplicationData = (): { state: State, setDay: Function, bookInterview: 
           interview: (action.interview ? { ...action.interview } : null)
         },
       };
-      const updateSpots = (state: State, appointments: { [id: number]: AppointmentAfterConversion}, id: number) => (
+      const updateSpots = (state: State, appointments: { [id: number]: Appointment }, id: number) => (
         state.days.map(day => day.appointments.includes(id) ? {
           ...day,
           spots: day.appointments.filter(spot => !appointments[spot].interview).length

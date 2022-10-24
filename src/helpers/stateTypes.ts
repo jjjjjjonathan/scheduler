@@ -11,7 +11,7 @@ export type InterviewBeforeConversion = {
 
 export type Interview = {
   student: string;
-  interviewer: Interviewer | number
+  interviewer: Interviewer
 }
 
 export type Day = {

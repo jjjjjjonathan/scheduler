@@ -61,7 +61,7 @@ export default ({
         </form>
         <section className='appointment__validation'>{error}</section>
         <InterviewerList
-          interviewers={interviewers}
+          interviewers={interviewers!}
           value={interviewer}
           onChange={setInterviewer}
         />

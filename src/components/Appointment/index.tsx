@@ -31,25 +31,31 @@ export default ({
 }: AppointmentProps) => {
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
+  const appointmentId: number | undefined = id !== undefined ? id : undefined;
+
   const save = (name: string, interviewer: Interviewer) => {
-    const interview = {
-      student: name,
-      interviewer,
-    };
-    transition(SAVING);
-    bookInterview(id, interview)
-      .then(() => transition(SHOW))
-      .catch((error: unknown) => transition(ERROR_SAVE, true));
+    if (bookInterview) {
+      const interview = {
+        student: name,
+        interviewer,
+      };
+      transition(SAVING);
+      bookInterview(id, interview)
+        .then(() => transition(SHOW))
+        .catch((error: unknown) => transition(ERROR_SAVE, true));
+    }
   };
 
   const deleteAppt = () => transition(CONFIRM);
   const editAppt = () => transition(EDIT);
 
   const confirmDeleteAppt = (id: number) => {
-    transition(DELETE, true);
-    deleteInterview(id)
-      .then(() => transition(EMPTY))
-      .catch((error: unknown) => transition(ERROR_DELETE, true));
+    if (deleteInterview) {
+      transition(DELETE, true);
+      deleteInterview(id)
+        .then(() => transition(EMPTY))
+        .catch((error: unknown) => transition(ERROR_DELETE, true));
+    }
   };
 
   useEffect(() => {
@@ -66,7 +72,12 @@ export default ({
       <Header time={time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && interview && (
-        <Show onDelete={deleteAppt} {...interview} id={id} onEdit={editAppt} />
+        <Show
+          onDelete={deleteAppt}
+          {...interview}
+          id={appointmentId}
+          onEdit={editAppt}
+        />
       )}
       {mode === CREATE && (
         <Form
@@ -91,8 +102,8 @@ export default ({
           interviewers={interviewers}
           onCancel={back}
           onSave={save}
-          student={interview.student}
-          interviewer={interview.interviewer.id}
+          student={interview!.student}
+          interviewer={interview!.interviewer.id}
         />
       )}
       {mode === ERROR_SAVE && (
