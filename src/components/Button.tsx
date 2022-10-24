@@ -1,10 +1,15 @@
 import React from 'react';
 import classNames from 'classnames';
+import './Button.scss';
+import { ButtonProps } from '../helpers/propTypes';
 
-import 'components/Button.scss';
-
-export default (props) => {
-  const { onClick, confirm, danger, disabled, children } = props;
+export default ({
+  onClick,
+  confirm,
+  danger,
+  disabled,
+  children,
+}: ButtonProps) => {
   const btnClass = classNames('button', {
     'button--confirm': confirm,
     'button--danger': danger,

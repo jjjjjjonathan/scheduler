@@ -4,11 +4,14 @@ Interview Scheduler is a single-page app (SPA) built with React that allows user
 
 With Web Sockets, users can also see real-time updates of the schedule when anyone creates, updates, or deletes an appointment. Data is stored on a PostgreSQL database.
 
+October 24, 2022: now converted to TypeScript!
+
 ## Stack
 
 ### Front-end
 
 - React
+- TypeScript
 - Axios
 - Sass
 
