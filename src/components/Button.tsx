@@ -1,14 +1,7 @@
 import React, { MouseEventHandler } from 'react';
 import classNames from 'classnames';
 import './Button.scss';
-
-type ButtonProps = {
-  onClick: MouseEventHandler;
-  confirm: Boolean;
-  danger: Boolean;
-  disabled: any;
-  children: any;
-};
+import { ButtonProps } from '../helpers/propTypes';
 
 export default ({
   onClick,

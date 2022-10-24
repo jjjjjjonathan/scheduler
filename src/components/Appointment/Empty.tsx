@@ -1,8 +1,5 @@
-import React, { MouseEventHandler } from 'react';
-
-type EmptyProps = {
-  onAdd: MouseEventHandler;
-};
+import React from 'react';
+import { EmptyProps } from '../../helpers/propTypes';
 
 export default ({ onAdd }: EmptyProps) => {
   return (

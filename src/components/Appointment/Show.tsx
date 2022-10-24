@@ -1,18 +1,5 @@
-import React, { MouseEventHandler } from 'react';
-
-type Interviewer = {
-  id: number;
-  name: string;
-  avatar: string;
-};
-
-type ShowProps = {
-  student: string;
-  interviewer: Interviewer;
-  onEdit: MouseEventHandler;
-  onDelete: Function;
-  id: number;
-};
+import React from 'react';
+import { ShowProps } from '../../helpers/propTypes';
 
 export default ({ student, interviewer, onEdit, onDelete, id }: ShowProps) => {
   return (

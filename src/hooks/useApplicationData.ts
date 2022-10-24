@@ -1,61 +1,13 @@
 import { useEffect, useReducer } from "react";
 import axios from "axios";
+import { SetDayAction, SetApplicationDataAction, SetInterviewAction } from "../helpers/actionTypes";
+import { State, AppointmentAfterConversion, Interview, Appointment } from "../helpers/stateTypes";
 
-export default () => {
+const useApplicationData = (): { state: State, setDay: Function, bookInterview: Function, deleteInterview: Function } => {
 
   const SET_DAY = "SET_DAY";
   const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
   const SET_INTERVIEW = "SET_INTERVIEW";
-
-  type Interview = {
-    student: string,
-    interviewer: number
-  }
-
-  type Appointment = {
-    id: number,
-    time: string,
-    interview: Interview | null
-  }
-
-  type Interviewer = {
-    id: number,
-    name: string,
-    avatar: string
-  }
-
-  type Day = {
-    id: number,
-    name: string,
-    appointments: number[],
-    interviewers: Interviewer[]
-  }
-  
-  type State = {
-    day: string,
-    days: Day[],
-    appointments: { [id: number]: Appointment },
-    interviewers: { [id: number]: Interviewer } 
-  }
-
-  type SetDayAction = {
-    type: string,
-    day: string
-  }
-
-
-  type SetApplicationDataAction = {
-    type: string,
-    days: any,
-    appointments: any,
-    interviewers: any
-  }
-
-  type SetInterviewAction = {
-    type: string,
-    id: number,
-    interview: Interview | null
-  }
 
   const reducers: {
     [name: string]: Function
@@ -82,7 +34,7 @@ export default () => {
           interview: (action.interview ? { ...action.interview } : null)
         },
       };
-      const updateSpots = (state: State, appointments: { [id: number]: Appointment}, id: number) => (
+      const updateSpots = (state: State, appointments: { [id: number]: AppointmentAfterConversion}, id: number) => (
         state.days.map(day => day.appointments.includes(id) ? {
           ...day,
           spots: day.appointments.filter(spot => !appointments[spot].interview).length
@@ -116,6 +68,8 @@ export default () => {
       axios.get('/api/interviewers'),
     ]).then((all) => {
       const [days, appointments, interviewers] = all;
+      console.log('appointments', appointments)
+      console.log('interviewers', interviewers)
       dispatch({
         type: SET_APPLICATION_DATA,
         days,
@@ -152,3 +106,5 @@ export default () => {
 
   return { state, setDay, bookInterview, deleteInterview };
 };
+
+export default useApplicationData

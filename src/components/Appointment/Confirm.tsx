@@ -1,12 +1,6 @@
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 import Button from '../Button';
-
-type ConfirmProps = {
-  message: string;
-  onConfirm: Function;
-  onCancel: MouseEventHandler;
-  id: number;
-};
+import { ConfirmProps } from '../../helpers/propTypes';
 
 export default ({ message, onConfirm, onCancel, id }: ConfirmProps) => {
   return (

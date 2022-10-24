@@ -2,18 +2,8 @@ import React from 'react';
 import InterviewerListItem from './InterviewerListItem';
 import './InterviewerList.scss';
 import PropTypes from 'prop-types';
-
-type Interviewer = {
-  id: number;
-  name: string;
-  avatar: string;
-};
-
-type InterviewerListProps = {
-  interviewers: Interviewer[];
-  value: number | null;
-  onChange: Function;
-};
+import { InterviewerListProps } from '../helpers/propTypes';
+import { Interviewer } from '../helpers/stateTypes';
 
 const InterviewerList = ({
   interviewers,

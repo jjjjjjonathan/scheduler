@@ -1,13 +1,7 @@
 import React, { MouseEventHandler } from 'react';
 import './InterviewerListItem.scss';
 import classNames from 'classnames';
-
-type InterviewerListItemProps = {
-  name: string;
-  avatar: string;
-  selected: boolean;
-  setInterviewer: MouseEventHandler;
-};
+import { InterviewerListItemProps } from '../helpers/propTypes';
 
 export default ({
   name,

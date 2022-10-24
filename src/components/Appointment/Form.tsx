@@ -1,20 +1,7 @@
-import React, { useState, MouseEventHandler, FormEvent } from 'react';
+import React, { useState, FormEvent } from 'react';
 import InterviewerList from '../InterviewerList';
 import Button from '../Button';
-
-type Interviewer = {
-  id: number;
-  name: string;
-  avatar: string;
-};
-
-type FormProps = {
-  student: string;
-  interviewers: Interviewer[];
-  onSave: Function;
-  onCancel: Function;
-  interviewer?: number;
-};
+import { FormProps } from '../../helpers/propTypes';
 
 export default ({
   student: studentProp,

@@ -1,8 +1,5 @@
 import React from 'react';
-
-type HeaderProps = {
-  time: string;
-};
+import { HeaderProps } from '../../helpers/propTypes';
 
 export default ({ time }: HeaderProps) => {
   return (

@@ -8,6 +8,8 @@ import Error from './Error';
 import useVisualMode from '../../hooks/useVisualMode';
 import './styles.scss';
 import Status from './Status';
+import { AppointmentProps } from '../../helpers/propTypes';
+import { Interviewer } from '../../helpers/stateTypes';
 
 const EMPTY = 'EMPTY';
 const SHOW = 'SHOW';
@@ -18,26 +20,6 @@ const DELETE = 'DELETE';
 const EDIT = 'EDIT';
 const ERROR_SAVE = 'ERROR_SAVE';
 const ERROR_DELETE = 'ERROR_DELETE';
-
-type Interviewer = {
-  id: number;
-  name: string;
-  avatar: string;
-};
-
-type Interview = {
-  student: string;
-  interviewer: Interviewer;
-};
-
-type AppointmentProps = {
-  time: string;
-  interview: Interview;
-  interviewers: Interviewer[];
-  bookInterview: Function;
-  id: number;
-  deleteInterview: Function;
-};
 
 export default ({
   time,
@@ -57,7 +39,7 @@ export default ({
     transition(SAVING);
     bookInterview(id, interview)
       .then(() => transition(SHOW))
-      .catch((error: any) => transition(ERROR_SAVE, true));
+      .catch((error: unknown) => transition(ERROR_SAVE, true));
   };
 
   const deleteAppt = () => transition(CONFIRM);
@@ -67,7 +49,7 @@ export default ({
     transition(DELETE, true);
     deleteInterview(id)
       .then(() => transition(EMPTY))
-      .catch((error: any) => transition(ERROR_DELETE, true));
+      .catch((error: unknown) => transition(ERROR_DELETE, true));
   };
 
   useEffect(() => {
