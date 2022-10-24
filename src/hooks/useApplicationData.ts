@@ -68,8 +68,6 @@ const useApplicationData = (): { state: State, setDay: Function, bookInterview: 
       axios.get('/api/interviewers'),
     ]).then((all) => {
       const [days, appointments, interviewers] = all;
-      console.log('appointments', appointments)
-      console.log('interviewers', interviewers)
       dispatch({
         type: SET_APPLICATION_DATA,
         days,

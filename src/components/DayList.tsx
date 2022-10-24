@@ -6,7 +6,7 @@ export default ({ days, onChange, value }: DayListProps) => {
   const parsedDays = days.map((day) => (
     <DayListItem
       key={day.id}
-      dayName={value}
+      dayName={day.name}
       setDay={() => onChange(day.name)}
       selected={value === day.name}
       {...day}
